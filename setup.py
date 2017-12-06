@@ -35,7 +35,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=find_version("eseries/__init__.py"),
+    version=find_version("eseries/version.py"),
 
     description='Working with the E-series of preferred numbers used for electronic components, ' \
                 'such as resistors and capacitors',
