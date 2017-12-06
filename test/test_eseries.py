@@ -1,9 +1,9 @@
 import math
-from hypothesis import given, assume, example
+from hypothesis import given, assume
 from hypothesis.strategies import sampled_from, floats, data
 
-from eseries import ESeries, series, _MINIMUM_E_VALUE, erange, E6, E48, find_less_than_or_equal, \
-    find_greater_than_or_equal, find_nearest, find_less_than, find_greater_than, find_nearest_few
+from eseries import (ESeries, series, erange, find_less_than_or_equal, find_greater_than_or_equal, find_nearest,
+                     find_less_than, find_greater_than, find_nearest_few, open_erange)
 
 
 @given(series_key=sampled_from(ESeries))
@@ -13,7 +13,7 @@ def test_series_cardinality(series_key):
 
 @given(series_key=sampled_from(ESeries),
        low=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
-def test_cardinality_over_one_order_of_magnitude(series_key, low):
+def test_erange_cardinality_over_one_order_of_magnitude(series_key, low):
     high = low * 10.0
     assume(math.isfinite(high))
     values = list(erange(series_key, low, high))
@@ -23,15 +23,27 @@ def test_cardinality_over_one_order_of_magnitude(series_key, low):
 
 
 @given(series_key=sampled_from(ESeries),
+       low=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
+def test_open_erange_cardinality_over_one_order_of_magnitude(series_key, low):
+    high = low * 10.0
+    assume(math.isfinite(high))
+    values = list(open_erange(series_key, low, high))
+    cardinality = series_key
+    assert len(values) == cardinality
+
+
+@given(series_key=sampled_from(ESeries),
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_less_than_or_equal(series_key, value):
     assert find_less_than_or_equal(series_key, value) <= value
+
 
 @given(data())
 def test_less_than_or_equal_returns_value_from_series(data):
     series_key = data.draw(sampled_from(ESeries))
     value = data.draw(sampled_from(series(series_key)))
     assert find_less_than_or_equal(series_key, value) == value
+
 
 @given(series_key=sampled_from(ESeries),
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
@@ -43,6 +55,7 @@ def test_less_than(series_key, value):
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_greater_than_or_equal(series_key, value):
     assert find_greater_than_or_equal(series_key, value) >= value
+
 
 @given(data())
 def test_less_than_or_equal_returns_value_from_series(data):
@@ -79,16 +92,19 @@ def test_nearest_returns_value_from_series(data):
     value = data.draw(sampled_from(series(series_key)))
     assert find_nearest(series_key, value) == value
 
+
 @given(series_key=sampled_from(ESeries),
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False),
        num=sampled_from((1, 2, 3)))
 def test_find_nearest_few_has_correct_cardinality(series_key, value, num):
     assert len(find_nearest_few(series_key, value, num)) == num
 
+
 @given(series_key=sampled_from(ESeries),
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_find_nearest_three_includes_at_least_one_less(series_key, value):
     assert any(v < value for v in find_nearest_few(series_key, value))
+
 
 @given(series_key=sampled_from(ESeries),
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
