@@ -10,6 +10,8 @@ _MINIMUM_E_VALUE = 1e-200
 
 
 class ESeries(IntEnum):
+    """An enumeration of possible E-Series identifiers.
+    """
     E3 = 3
     E6 = 6
     E12 = 12
@@ -54,6 +56,18 @@ _E = OrderedDict((
 
 
 def series(series_key):
+    """The base values for the given E-series.
+
+    Args:
+        series_key: An E-Series key such as E24.
+
+    Returns:
+        A tuple of base value for the series. For example, for
+        E3 the tuple (10, 22, 47) will be returned.
+
+    Raises:
+        ValueError: If not such series exists.
+    """
     try:
         return _E[series_key]
     except KeyError:
@@ -63,6 +77,16 @@ def series(series_key):
 
 
 def series_keys():
+    """The available series keys.
+
+    Note:
+        The series keys returned will be members of the ESeries enumeration.
+        These are useful for programmatic use. For constant values consider
+        using the module aliases E3, E6, E12, etc.
+
+    Returns:
+        A set-like object containing the series-keys.
+    """
     return _E.keys()
 
 
