@@ -21,13 +21,13 @@ For example, to find the nearest E24 value to 319 use::
   330
 
 To find the next value greater-than or equal-to 184 in the E96 series
-use:
+use::
 
   >>> from eseries import find_greater_than_or_equal, E96
   >>> find_greater_than_or_equal(E96, 184)
   187
 
-To find a few values around the specified value, use:
+To find a few values around the specified value, use::
 
   >>> from eseries import find_nearest_few, E24
   >>> find_nearest_few(E24, 5000)
@@ -73,7 +73,7 @@ If you prefer an SI exponent symbol, supply ``--symbol`` or ``-s``::
   $ eseries nearest E24 37726 -s
   39 k
 
-To show values around the given value, use the ``nearby`` command:
+To show values around the given value, use the ``nearby`` command::
 
   $ eseries nearby E48 52e6 -s
     48.7 M
