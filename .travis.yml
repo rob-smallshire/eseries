@@ -8,6 +8,6 @@ install:
   - "pip install -r test/test-requirements.txt"
 # command to run tests
 script:
-    - pytest --cov-report= --cov=asm68 tests/
+    - pytest --cov-report= --cov=eseries tests/
 after_success:
     - coveralls
