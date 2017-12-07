@@ -10,7 +10,7 @@ from eseries.eng import eng_string
 from eseries.version import __version__
 from eseries.eseries import series_key_from_name, find_nearest, find_nearest_few, find_greater_than_or_equal, \
     find_greater_than, find_less_than, find_less_than_or_equal, tolerance, series, erange, lower_tolerance_limit, \
-    tolerance_limits
+    tolerance_limits, upper_tolerance_limit
 
 DOC_TEMPLATE = """{program}
 
@@ -144,7 +144,10 @@ def handle_tolerance(args):
     series_key = extract_series_key(args)
     tol = tolerance(series_key)
     if args['--symbol']:
-        print("{}%".format(tol * 100))
+        percent = float(tol * 100)
+        if percent.is_integer():
+            percent = int(percent)
+        print("{}%".format(percent))
     else:
         print(tol)
     return os.EX_OK
@@ -210,7 +213,7 @@ def handle_upper_tolerance_limit(args):
     """
     series_key = extract_series_key(args)
     value = extract_value(args)
-    upper = lower_tolerance_limit(series_key, value)
+    upper = upper_tolerance_limit(series_key, value)
     upper_text = present_value(args, upper)
     print(upper_text)
     return os.EX_OK

@@ -166,7 +166,6 @@ def find_greater_than_or_equal(series_key, value):
     for candidate in candidates:
         if candidate >= value:
             return candidate
-    assert False
 
 
 def find_greater_than(series_key, value):
@@ -189,7 +188,6 @@ def find_greater_than(series_key, value):
     for candidate in candidates:
         if candidate > value:
             return candidate
-    assert False
 
 
 def find_less_than_or_equal(series_key, value):
@@ -212,7 +210,6 @@ def find_less_than_or_equal(series_key, value):
     for candidate in reversed(candidates):
         if candidate <= value:
             return candidate
-    assert False
 
 
 def find_less_than(series_key, value):
@@ -235,7 +232,6 @@ def find_less_than(series_key, value):
     for candidate in reversed(candidates):
         if candidate < value:
             return candidate
-    assert False
 
 
 def find_nearest(series_key, value):
@@ -331,7 +327,7 @@ def erange(series_key, start, stop):
     stop_index = bisect_right(series_log, stop_mantissa)
     assert stop_index != 0
 
-    series_decade = _try_integral(log10(series_values[0]))
+    series_decade = int(log10(series_values[0]))
 
     for decade in range(start_decade, stop_decade + 1):
         index_begin = start_index if decade == start_decade else 0
@@ -437,18 +433,4 @@ def _decade_mantissa(value):
     return int(f_decade), mantissa
 
 
-def _try_integral(f):
-    if not _is_integral(f):
-        raise ValueError("{} does not have integral value.")
-    return int(f)
-
-
-def _is_integral(f):
-    return f == math.floor(f)
-
-
-if __name__ == '__main__':
-    find_greater_than_or_equal(E12, 83)
-    for r in erange(E12, 21, 147):
-        print(r)
 

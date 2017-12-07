@@ -1,10 +1,11 @@
 import math
 from hypothesis import given, assume
-from hypothesis.strategies import sampled_from, floats, data
+from hypothesis.strategies import sampled_from, floats, data, integers
+from pytest import raises
 
 from eseries import (ESeries, series, erange, find_less_than_or_equal, find_greater_than_or_equal, find_nearest,
                      find_less_than, find_greater_than, find_nearest_few, open_erange)
-from eseries.eseries import lower_tolerance_limit, upper_tolerance_limit, tolerance_limits
+from eseries.eseries import lower_tolerance_limit, upper_tolerance_limit, tolerance_limits, E12, tolerance
 
 
 @given(series_key=sampled_from(ESeries))
@@ -59,7 +60,7 @@ def test_greater_than_or_equal(series_key, value):
 
 
 @given(data())
-def test_less_than_or_equal_returns_value_from_series(data):
+def test_greater_than_or_equal_returns_value_from_series(data):
     series_key = data.draw(sampled_from(ESeries))
     value = data.draw(sampled_from(series(series_key)))
     assert find_greater_than_or_equal(series_key, value) == value
@@ -102,6 +103,15 @@ def test_find_nearest_few_has_correct_cardinality(series_key, value, num):
 
 
 @given(series_key=sampled_from(ESeries),
+       value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False),
+       num=integers())
+def test_find_nearest_few_raises_error_with_num_out_of_range(series_key, value, num):
+    assume(num not in {1, 2, 3})
+    with raises(ValueError):
+        find_nearest_few(series_key, value, num)
+
+
+@given(series_key=sampled_from(ESeries),
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_find_nearest_three_includes_at_least_one_less(series_key, value):
     assert any(v < value for v in find_nearest_few(series_key, value))
@@ -134,3 +144,37 @@ def test_tolerance_limits_bound_nominal_value(series_key, value):
     assert lower < value < upper
 
 
+def test_erange_start_infinite_raises_value_error():
+    with raises(ValueError):
+        inf = float("inf")
+        list(erange(E12, inf, 10))
+
+
+def test_erange_stop_infinite_raises_value_error():
+    with raises(ValueError):
+        list(erange(E12, 10, float("inf")))
+
+
+def test_erange_start_too_small_raises_value_error():
+    with raises(ValueError):
+        list(erange(E12, 0, 10))
+
+
+def test_erange_stop_too_small_raises_value_error():
+    with raises(ValueError):
+        list(erange(E12, 10, 0))
+
+
+def test_erange_start_stop_in_wrong_order_raises_value_error():
+    with raises(ValueError):
+        list(erange(E12, 10, 8))
+
+
+def test_illegal_series_key_raises_value_error():
+    with raises(ValueError):
+        series(13)
+
+
+def test_illegal_series_key_for_tolerance_raises_value_error():
+    with raises(ValueError):
+        tolerance(13)
