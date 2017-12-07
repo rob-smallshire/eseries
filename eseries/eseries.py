@@ -346,7 +346,7 @@ def erange(series_key, start, stop):
 
 
 def open_erange(series_key, start, stop):
-    """Generate  E values in a half-open range inclusive of start, but exclusive of stop.
+    """Generate E values in a half-open range inclusive of start, but exclusive of stop.
 
     Args:
         series_key: The ESeries to use.
@@ -364,6 +364,61 @@ def open_erange(series_key, start, stop):
         ValueError: If start or stop are out of range.
     """
     return (item for item in erange(series_key, start, stop) if item != stop)
+
+
+def lower_tolerance_limit(series_key, value):
+    """The lower limit for a nominal value of a series.
+
+    Args:
+        series_key: The ESeries to use.
+        value: A nominal value. This value need not be an member of
+            the specified E-series.
+
+    Returns:
+        The lower tolerance limit for the nominal value based on the
+        E-series tolerance.
+
+    Raises:
+        ValueError: If series_key is not known.
+    """
+    return value - value * tolerance(series_key)
+
+
+def upper_tolerance_limit(series_key, value):
+    """The upper limit for a nominal value of a series.
+
+    Args:
+        series_key: The ESeries to use.
+        value: A nominal value. This value need not be an member of
+            the specified E-series.
+
+    Returns:
+        The upper tolerance limit for the nominal value based on the
+        E-series tolerance.
+
+    Raises:
+        ValueError: If series_key is not known.
+    """
+    return value + value * tolerance(series_key)
+
+
+def tolerance_limits(series_key, value):
+    """The lower and upper tolerance limits for a nominal value of a series.
+
+    Args:
+        series_key: The ESeries to use.
+        value: A nominal value. This value need not be an member of
+            the specified E-series.
+
+    Returns:
+        A 2-tuple containing the lower and upper tolerance limits for the
+        nominal value based on the E-series tolerance.
+
+    Raises:
+        ValueError: If series_key is not known.
+    """
+    return (lower_tolerance_limit(series_key, value),
+            upper_tolerance_limit(series_key, value))
 
 
 def _nearest_n(candidates, value, n):

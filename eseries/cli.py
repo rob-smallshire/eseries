@@ -9,7 +9,8 @@ import docopt_subcommands as dsc
 from eseries.eng import eng_string
 from eseries.version import __version__
 from eseries.eseries import series_key_from_name, find_nearest, find_nearest_few, find_greater_than_or_equal, \
-    find_greater_than, find_less_than, find_less_than_or_equal, tolerance, series, erange
+    find_greater_than, find_less_than, find_less_than_or_equal, tolerance, series, erange, lower_tolerance_limit, \
+    tolerance_limits
 
 DOC_TEMPLATE = """{program}
 
@@ -176,6 +177,62 @@ def handle_range(args):
     for item in items:
         item_text = present_value(args, item)
         print(item_text)
+    return os.EX_OK
+
+
+@dsc.command()
+def handle_lower_tolerance_limit(args):
+    """usage: {program} lower-tolerance-limit <e-series> <value> [--symbol]
+
+    The lower tolerance limit of a nominal value given the tolerance
+    of the specified E-Series.
+
+    Options:
+      -s --symbol  Use the SI magnitude prefix symbol.
+    """
+    series_key = extract_series_key(args)
+    value = extract_value(args)
+    lower = lower_tolerance_limit(series_key, value)
+    lower_text = present_value(args, lower)
+    print(lower_text)
+    return os.EX_OK
+
+
+@dsc.command()
+def handle_upper_tolerance_limit(args):
+    """usage: {program} upper-tolerance-limit <e-series> <value> [--symbol]
+
+    The upper tolerance limit of a nominal value given the tolerance
+    of the specified E-Series.
+
+    Options:
+      -s --symbol  Use the SI magnitude prefix symbol.
+    """
+    series_key = extract_series_key(args)
+    value = extract_value(args)
+    upper = lower_tolerance_limit(series_key, value)
+    upper_text = present_value(args, upper)
+    print(upper_text)
+    return os.EX_OK
+
+
+@dsc.command()
+def handle_tolerance_limits(args):
+    """usage: {program} tolerance-limits <e-series> <value> [--symbol]
+
+    The upper and lower tolerance limits of a nominal value given the
+    tolerance of the specified E-Series.
+
+    Options:
+      -s --symbol  Use the SI magnitude prefix symbol.
+    """
+    series_key = extract_series_key(args)
+    value = extract_value(args)
+    lower, upper = tolerance_limits(series_key, value)
+    lower_text = present_value(args, lower)
+    upper_text = present_value(args, upper)
+    print(lower_text)
+    print(upper_text)
     return os.EX_OK
 
 

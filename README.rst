@@ -90,9 +90,9 @@ If you prefer an SI exponent symbol, supply ``--symbol`` or ``-s``::
 To show values around the given value, use the ``nearby`` command::
 
   $ eseries nearby E48 52e6 -s
-    48.7 M
-    51.1 M
-    53.6 M
+  48.7 M
+  51.1 M
+  53.6 M
 
 To show the smallest value greater than or equal to the given value, use the ``ge`` command::
 

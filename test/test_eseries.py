@@ -4,6 +4,7 @@ from hypothesis.strategies import sampled_from, floats, data
 
 from eseries import (ESeries, series, erange, find_less_than_or_equal, find_greater_than_or_equal, find_nearest,
                      find_less_than, find_greater_than, find_nearest_few, open_erange)
+from eseries.eseries import lower_tolerance_limit, upper_tolerance_limit, tolerance_limits
 
 
 @given(series_key=sampled_from(ESeries))
@@ -110,3 +111,26 @@ def test_find_nearest_three_includes_at_least_one_less(series_key, value):
        value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_find_nearest_three_includes_at_least_one_greater(series_key, value):
     assert any(v > value for v in find_nearest_few(series_key, value))
+
+
+@given(series_key=sampled_from(ESeries),
+       value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
+def test_lower_tolerance_limit_is_less_than_nominal_value(series_key, value):
+    lower = lower_tolerance_limit(series_key, value)
+    assert lower < value
+
+
+@given(series_key=sampled_from(ESeries),
+       value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
+def test_upper_tolerance_limit_is_greater_than_nominal_value(series_key, value):
+    upper = upper_tolerance_limit(series_key, value)
+    assert upper > value
+
+
+@given(series_key=sampled_from(ESeries),
+       value=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
+def test_tolerance_limits_bound_nominal_value(series_key, value):
+    lower, upper = tolerance_limits(series_key, value)
+    assert lower < value < upper
+
+
