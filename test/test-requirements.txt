@@ -1,2 +1,5 @@
-hypothesis>=3.0.0
-pytest>=3.0.7
+hypothesis>=3.33.0
+pytest>=3.2.3
+coverage>=4.4.2
+pytest-cov>=2.5.1
+coveralls>=1.2.0
