@@ -116,13 +116,13 @@ To show the smallest value greater than or equal to the given value, use the ``g
   $ eseries ge E48 52e3 -s
   53.6 k
 
- To show the upper and lower tolerance limits of a nominal value, use the ``tolerance-limits`` command::
+To show the upper and lower tolerance limits of a nominal value, use the ``tolerance-limits`` command::
 
   $ eseries tolerance-limits E48 35
   34.3
   35.7
 
- To show all values in an inclusive range, use the ``range`` command::
+To show all values in an inclusive range, use the ``range`` command::
 
   $ eseries range E6 74e-9 34e-6 --symbol
   100 n
