@@ -11,6 +11,12 @@ to 999, as 100, 220, 330, 470, and 680.
 This ``eseries`` library is useful for selecting values from the
 standard E3, E6, E12, E24, E48, E96 and E192 decades.
 
+Status
+------
+
+.. image:: https://travis-ci.org/rob-smallshire/eseries.svg?branch=master
+    :target: https://travis-ci.org/rob-smallshire/eseries
+
 Installation
 ------------
 
