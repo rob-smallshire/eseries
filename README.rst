@@ -77,17 +77,20 @@ to see a list of commands::
     -h --help     Show this screen.
     -v --verbose  Use verbose logging
 
-  Available commands:
+ Available commands:
     ge
     gt
     help
     le
+    lower-tolerance-limit
     lt
     nearby
     nearest
     range
     series
     tolerance
+    tolerance-limits
+    upper-tolerance-limit
 
   See 'eseries help <command>' for help on specific commands.
 
@@ -113,4 +116,28 @@ To show the smallest value greater than or equal to the given value, use the ``g
   $ eseries ge E48 52e3 -s
   53.6 k
 
+ To show the upper and lower tolerance limits of a nominal value, use the ``tolerance-limits`` command::
 
+  $ eseries tolerance-limits E48 35
+  34.3
+  35.7
+
+ To show all values in an inclusive range, use the ``range`` command::
+
+  $ eseries range E6 74e-9 34e-6 --symbol
+  100 n
+  150 n
+  220 n
+  330 n
+  470 n
+  680 n
+  1 µ
+  1.5 µ
+  2.2 µ
+  3.3 µ
+  4.7 µ
+  6.8 µ
+  10 µ
+  15 µ
+  22 µ
+  33 µ
