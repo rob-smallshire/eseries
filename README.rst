@@ -16,6 +16,9 @@ Status
 
 .. image:: https://travis-ci.org/rob-smallshire/eseries.svg?branch=master
     :target: https://travis-ci.org/rob-smallshire/eseries
+    
+.. image:: https://coveralls.io/repos/github/rob-smallshire/eseries/badge.svg?branch=master
+    :target: https://coveralls.io/github/rob-smallshire/eseries?branch=master
 
 Installation
 ------------
