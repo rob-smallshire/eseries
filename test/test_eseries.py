@@ -147,27 +147,53 @@ def test_tolerance_limits_bound_nominal_value(series_key, value):
 def test_erange_start_infinite_raises_value_error():
     with raises(ValueError):
         inf = float("inf")
-        list(erange(E12, inf, 10))
+        erange(E12, inf, 10)
 
 
 def test_erange_stop_infinite_raises_value_error():
     with raises(ValueError):
-        list(erange(E12, 10, float("inf")))
+        erange(E12, 10, float("inf"))
 
 
 def test_erange_start_too_small_raises_value_error():
     with raises(ValueError):
-        list(erange(E12, 0, 10))
+        erange(E12, 0, 10)
 
 
 def test_erange_stop_too_small_raises_value_error():
     with raises(ValueError):
-        list(erange(E12, 10, 0))
+        erange(E12, 10, 0)
 
 
 def test_erange_start_stop_in_wrong_order_raises_value_error():
     with raises(ValueError):
-        list(erange(E12, 10, 8))
+        erange(E12, 10, 8)
+
+
+def test_open_erange_start_infinite_raises_value_error():
+    with raises(ValueError):
+        inf = float("inf")
+        open_erange(E12, inf, 10)
+
+
+def test_open_erange_stop_infinite_raises_value_error():
+    with raises(ValueError):
+        open_erange(E12, 10, float("inf"))
+
+
+def test_open_erange_start_too_small_raises_value_error():
+    with raises(ValueError):
+        open_erange(E12, 0, 10)
+
+
+def test_open_erange_stop_too_small_raises_value_error():
+    with raises(ValueError):
+        open_erange(E12, 10, 0)
+
+
+def test_open_erange_start_stop_in_wrong_order_raises_value_error():
+    with raises(ValueError):
+        open_erange(E12, 10, 8)
 
 
 def test_illegal_series_key_raises_value_error():

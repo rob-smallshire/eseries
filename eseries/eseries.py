@@ -309,11 +309,13 @@ def erange(series_key, start, stop):
     if not start <= stop:
         raise ValueError("Start value {} must be less than stop value {}".format(start, stop))
 
+    return _erange(series_key, start, stop)
+
+
+def _erange(series_key, start, stop):
     series_values = series(series_key)
     series_log = LOG10_MANTISSA_E[series_key]
-
     epsilon = (series_log[-1] - series_log[-2]) / 2
-
     start_log = log10(start) - epsilon
     start_decade, start_mantissa = _decade_mantissa(start_log)
     start_index = bisect_left(series_log, start_mantissa)
@@ -321,14 +323,11 @@ def erange(series_key, start, stop):
         # Wrap to next decade
         start_decade += 1
         start_index = 0
-
-    stop_log = log10(stop) +  epsilon
+    stop_log = log10(stop) + epsilon
     stop_decade, stop_mantissa = _decade_mantissa(stop_log)
     stop_index = bisect_right(series_log, stop_mantissa)
     assert stop_index != 0
-
     series_decade = int(log10(series_values[0]))
-
     for decade in range(start_decade, stop_decade + 1):
         index_begin = start_index if decade == start_decade else 0
         index_end = stop_index if decade == stop_decade else len(series_log)
@@ -359,6 +358,16 @@ def open_erange(series_key, start, stop):
         ValueError: If start or stop are not both finite.
         ValueError: If start or stop are out of range.
     """
+    if not math.isfinite(start):
+        raise ValueError("Start value {} is not finite".format(start))
+    if not math.isfinite(stop):
+        raise ValueError("Stop value {} is not finite".format(stop))
+    if start < _MINIMUM_E_VALUE:
+        raise ValueError("{} is too small. The start value must greater than or equal to {}".format(stop, _MINIMUM_E_VALUE))
+    if stop < _MINIMUM_E_VALUE:
+        raise ValueError("{} is too small. The stop value must greater than or equal to {}".format(stop, _MINIMUM_E_VALUE))
+    if not start <= stop:
+        raise ValueError("Start value {} must be less than stop value {}".format(start, stop))
     return (item for item in erange(series_key, start, stop) if item != stop)
 
 
