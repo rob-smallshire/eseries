@@ -20,6 +20,8 @@ Status
 .. image:: https://coveralls.io/repos/github/rob-smallshire/eseries/badge.svg?branch=master
     :target: https://coveralls.io/github/rob-smallshire/eseries?branch=master
 
+
+
 Installation
 ------------
 
