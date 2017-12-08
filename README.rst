@@ -30,7 +30,7 @@ The ``eseries`` package is available on the Python Package Index (PyPI):
 .. image:: https://badge.fury.io/py/eseries.svg
     :target: https://badge.fury.io/py/eseries
 
-The package support Python 3 only. To install::
+The package supports Python 3 only. To install::
 
   $ pip install eseries
 
