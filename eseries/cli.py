@@ -28,7 +28,7 @@ See '{program} help <command>' for help on specific commands.
 
 
 @dsc.command()
-def handle_nearest(args):
+def handle_nearest(precommand, args):
     """usage: {program} nearest <e-series> <value> [--symbol]
 
     The nearest value in an E-Series.
@@ -45,7 +45,7 @@ def handle_nearest(args):
 
 
 @dsc.command()
-def handle_nearby(args):
+def handle_nearby(precommand, args):
     """usage: {program} nearby <e-series> <value> [--symbol]
 
     At least three nearby values in an E-Series, and least one of
@@ -65,7 +65,7 @@ def handle_nearby(args):
 
 
 @dsc.command()
-def handle_gt(args):
+def handle_gt(precommand, args):
     """usage: {program} gt <e-series> <value> [--symbol]
 
     The largest value greater-than the given value.
@@ -82,7 +82,7 @@ def handle_gt(args):
 
 
 @dsc.command()
-def handle_ge(args):
+def handle_ge(precommand, args):
     """usage: {program} ge <e-series> <value> [--symbol]
 
     The largest value greater-than or equal-to the given value.
@@ -99,7 +99,7 @@ def handle_ge(args):
 
 
 @dsc.command()
-def handle_lt(args):
+def handle_lt(precommand, args):
     """usage: {program} lt <e-series> <value> [--symbol]
 
     The largest value less-than the given value.
@@ -116,7 +116,7 @@ def handle_lt(args):
 
 
 @dsc.command()
-def handle_le(args):
+def handle_le(precommand, args):
     """usage: {program} le <e-series> <value> [--symbol]
 
     The largest value less-than or equal-to the given value.
@@ -133,7 +133,7 @@ def handle_le(args):
 
 
 @dsc.command()
-def handle_tolerance(args):
+def handle_tolerance(precommand, args):
     """usage: {program} tolerance <e-series> [--symbol]
 
     The tolerance of the given E-Series.
@@ -153,7 +153,7 @@ def handle_tolerance(args):
     return os.EX_OK
 
 @dsc.command()
-def handle_series(args):
+def handle_series(precommand, args):
     """usage: {program} series <e-series>
 
     The base values for the given E-Series.
@@ -165,7 +165,7 @@ def handle_series(args):
 
 
 @dsc.command()
-def handle_range(args):
+def handle_range(precommand, args):
     """usage: {program} range <e-series> <start-value> <stop-value> [--symbol]
 
     All values in the given E-series from start-value to stop-value inclusive.
@@ -184,7 +184,7 @@ def handle_range(args):
 
 
 @dsc.command()
-def handle_lower_tolerance_limit(args):
+def handle_lower_tolerance_limit(precommand, args):
     """usage: {program} lower-tolerance-limit <e-series> <value> [--symbol]
 
     The lower tolerance limit of a nominal value given the tolerance
@@ -202,7 +202,7 @@ def handle_lower_tolerance_limit(args):
 
 
 @dsc.command()
-def handle_upper_tolerance_limit(args):
+def handle_upper_tolerance_limit(precommand, args):
     """usage: {program} upper-tolerance-limit <e-series> <value> [--symbol]
 
     The upper tolerance limit of a nominal value given the tolerance
@@ -220,7 +220,7 @@ def handle_upper_tolerance_limit(args):
 
 
 @dsc.command()
-def handle_tolerance_limits(args):
+def handle_tolerance_limits(precommand, args):
     """usage: {program} tolerance-limits <e-series> <value> [--symbol]
 
     The upper and lower tolerance limits of a nominal value given the
@@ -263,11 +263,10 @@ def main(argv=None):
     try:
         return dsc.main(
             program='eseries',
-            version='E-Series {}'.format(__version__),
             argv=argv,
             doc_template=DOC_TEMPLATE,
             exit_at_end=False)
-    except docopt.DocoptExit as exc:
+    except (docopt.DocoptExit, SystemExit) as exc:
         print(exc, file=sys.stderr)
         return os.EX_USAGE
     except ValueError as exc:
