@@ -1,3 +1,15 @@
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+from builtins import int
+# from builtins import round
+from builtins import range
+from builtins import map
+from builtins import zip
+from builtins import str
+from future import standard_library
+standard_library.install_aliases()
 from bisect import bisect_right, bisect_left
 from collections import OrderedDict
 from enum import IntEnum
@@ -298,9 +310,9 @@ def erange(series_key, start, stop):
         ValueError: If start or stop are not both finite.
         ValueError: If start or stop are out of range.
     """
-    if not math.isfinite(start):
+    if math.isinf(start):
         raise ValueError("Start value {} is not finite".format(start))
-    if not math.isfinite(stop):
+    if math.isinf(stop):
         raise ValueError("Stop value {} is not finite".format(stop))
     if start < _MINIMUM_E_VALUE:
         raise ValueError("{} is too small. The start value must greater than or equal to {}".format(stop, _MINIMUM_E_VALUE))
@@ -358,9 +370,9 @@ def open_erange(series_key, start, stop):
         ValueError: If start or stop are not both finite.
         ValueError: If start or stop are out of range.
     """
-    if not math.isfinite(start):
+    if math.isinf(start):
         raise ValueError("Start value {} is not finite".format(start))
-    if not math.isfinite(stop):
+    if math.isinf(stop):
         raise ValueError("Stop value {} is not finite".format(stop))
     if start < _MINIMUM_E_VALUE:
         raise ValueError("{} is too small. The start value must greater than or equal to {}".format(stop, _MINIMUM_E_VALUE))
@@ -434,7 +446,7 @@ def _nearest_n(candidates, value, n):
 
 
 def _round_sig(x, figures=6):
-    return 0 if x == 0 else round(x, figures - floor(log10(abs(x))) - 1)
+    return 0 if x == 0 else round(x, int(figures - floor(log10(abs(x))) - 1))
 
 
 def _decade_mantissa(value):

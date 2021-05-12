@@ -1,5 +1,12 @@
 """The command-line for eseries"""
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import unicode_literals
 
+from builtins import int
+from future import standard_library
+standard_library.install_aliases()
 import os
 import sys
 
@@ -244,7 +251,7 @@ def present_value(args, nearest):
 
 
 def extract_series_key(args):
-    e_series_name = args['<e-series>']
+    e_series_name = args['<e-series>'].upper()
     series_key = series_key_from_name(e_series_name)
     return series_key
 

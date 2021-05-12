@@ -1,8 +1,16 @@
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+from builtins import str
+from builtins import int
+from future import standard_library
+standard_library.install_aliases()
 from math import floor, log10
 
 from eseries.eseries import _round_sig
 
-PREFIXES = 'yzafpnµm kMGTPEZY'
+PREFIXES = 'yzafpnum kMGTPEZY'
 
 
 def eng_string(x, sig_figs=3, prefix=True):
