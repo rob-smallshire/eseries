@@ -16,7 +16,7 @@ Status
 
 .. image:: https://travis-ci.org/rob-smallshire/eseries.svg?branch=master
     :target: https://travis-ci.org/rob-smallshire/eseries
-    
+
 .. image:: https://coveralls.io/repos/github/rob-smallshire/eseries/badge.svg?branch=master
     :target: https://coveralls.io/github/rob-smallshire/eseries?branch=master
 
@@ -143,3 +143,18 @@ To show all values in an inclusive range, use the ``range`` command::
   15 µ
   22 µ
   33 µ
+
+
+Testing
+-------
+
+Testing is performed for all supported versions using ``tox``. You'll need to ensure that the required
+Python versions are available in your environment. For example, if you're using ``pyenv``, do::
+
+  $ pyenv local 2.7.18 3.6.12 3.7.9 3.8.1 3.9.1
+
+before running ``tox``::
+
+  $ tox
+
+
