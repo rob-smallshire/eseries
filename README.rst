@@ -14,8 +14,8 @@ standard E3, E6, E12, E24, E48, E96 and E192 decades.
 Status
 ------
 
-.. image:: https://travis-ci.org/rob-smallshire/eseries.svg?branch=master
-    :target: https://travis-ci.org/rob-smallshire/eseries
+.. image:: https://github.com/rob-smallshire/eseries/actions/workflows/build.yml/badge.svg
+    :target: https://github.com/rob-smallshire/eseries/actions
 
 .. image:: https://coveralls.io/repos/github/rob-smallshire/eseries/badge.svg?branch=master
     :target: https://coveralls.io/github/rob-smallshire/eseries?branch=master
