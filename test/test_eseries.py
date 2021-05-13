@@ -17,7 +17,7 @@ def test_series_cardinality(series_key):
        low=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_erange_cardinality_over_one_order_of_magnitude(series_key, low):
     high = low * 10.0
-    assume(math.isfinite(high))
+    assume(not math.isinf(high))
     values = list(erange(series_key, low, high))
     include_end = bool(high in values)
     cardinality = series_key + include_end
@@ -28,7 +28,7 @@ def test_erange_cardinality_over_one_order_of_magnitude(series_key, low):
        low=floats(min_value=1e-35, max_value=1e35, allow_nan=False, allow_infinity=False))
 def test_open_erange_cardinality_over_one_order_of_magnitude(series_key, low):
     high = low * 10.0
-    assume(math.isfinite(high))
+    assume(not math.isinf(high))
     values = list(open_erange(series_key, low, high))
     cardinality = series_key
     assert len(values) == cardinality
