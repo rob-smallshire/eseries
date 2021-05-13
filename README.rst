@@ -161,6 +161,8 @@ before running ``tox``::
 Deployment to PyPI
 ------------------
 
+::
+
   $ pip install -e ".[dev]"
   $ bumpversion patch
   $ python setup.py sdist bdist_wheel
