@@ -96,7 +96,7 @@ setup(
     # You can install these using the following syntax, for example:
     # $ pip install -e .[dev,test]
     extras_require = {
-        'dev': ['check-manifest', 'wheel'],
+        'dev': ['check-manifest', 'wheel', 'bumpversion'],
         'doc': ['sphinx', 'cartouche'],
         'test': ['coverage', 'hypothesis', 'pytest'],
     },

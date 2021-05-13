@@ -158,3 +158,12 @@ before running ``tox``::
   $ tox
 
 
+Deployment to PyPI
+------------------
+
+  $ pip install -e ".[dev]"
+  $ bumpversion patch
+  $ python setup.py sdist bdist_wheel
+  $ twine upload --config-file <path>/credentials.pypirc dist/*
+  $ git push origin
+
