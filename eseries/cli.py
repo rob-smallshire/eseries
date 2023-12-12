@@ -5,8 +5,11 @@ from __future__ import division
 from __future__ import unicode_literals
 
 from builtins import int
-from future import standard_library
-standard_library.install_aliases()
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 import os
 import sys
 
