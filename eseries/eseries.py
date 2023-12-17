@@ -8,8 +8,11 @@ from builtins import range
 from builtins import map
 from builtins import zip
 from builtins import str
-from future import standard_library
-standard_library.install_aliases()
+try:
+    from future import standard_library
+    standard_library.install_aliases()
+except ImportError:
+    pass
 from bisect import bisect_right, bisect_left
 from collections import OrderedDict
 from enum import IntEnum
