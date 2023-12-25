@@ -1,18 +1,3 @@
-from __future__ import division
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-from builtins import int
-# from builtins import round
-from builtins import range
-from builtins import map
-from builtins import zip
-from builtins import str
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 from bisect import bisect_right, bisect_left
 from collections import OrderedDict
 from enum import IntEnum
