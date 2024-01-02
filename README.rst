@@ -30,7 +30,7 @@ The ``eseries`` package is available on the Python Package Index (PyPI):
 .. image:: https://badge.fury.io/py/eseries.svg
     :target: https://badge.fury.io/py/eseries
 
-The package supports Python 3 and is compatible to Python 2.7. To install::
+The package supports Python 3. To install::
 
   $ pip install eseries
 
@@ -151,7 +151,7 @@ Testing
 Testing is performed for all supported versions using ``tox``. You'll need to ensure that the required
 Python versions are available in your environment. For example, if you're using ``pyenv``, do::
 
-  $ pyenv local 2.7 3.6 3.7 3.8 3.9 3.10 3.11 3.12
+  $ pyenv local 3.6 3.7 3.8 3.9 3.10 3.11 3.12
 
 before running ``tox``::
 

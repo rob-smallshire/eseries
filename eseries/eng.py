@@ -1,14 +1,3 @@
-from __future__ import division
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-from builtins import str
-from builtins import int
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 from math import floor, log10
 
 from eseries.eseries import _round_sig
